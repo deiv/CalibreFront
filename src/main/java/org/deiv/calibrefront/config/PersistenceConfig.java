@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.sqlite.SQLiteConfig;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -29,6 +30,10 @@ public class PersistenceConfig {
 
         dataSource.setDriverClassName(persistenceProperties.getDriver());
         dataSource.setUrl(persistenceProperties.getUrl());
+
+        Properties sqlLiteDriverProperties = new Properties();
+        sqlLiteDriverProperties.setProperty(SQLiteConfig.Pragma.DATE_STRING_FORMAT.pragmaName, "yyyy-MM-dd HH:mm:ss.SSSXXX");
+        dataSource.setConnectionProperties( sqlLiteDriverProperties);
 
         return dataSource;
     }
