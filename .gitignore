@@ -1,5 +1,10 @@
 *.class
+
 target
+calibre-front-pwa/build
+calibre-front-pwa/node_modules/
+package-lock.json
+yarn.lock
 
 .idea
 
