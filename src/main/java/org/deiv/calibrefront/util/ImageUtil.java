@@ -34,13 +34,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class ImageUtil {
 
     private static final int THUMBNAIL_WIDTH = 450;
     private static final int THUMBNAIL_HEIGHT = 300;
 
-    public static BufferedImage createThumbnailFromFile(File file)
+    public static BufferedImage createThumbnailFromFile(InputStream file)
         throws IOException
     {
         BufferedImage img = ImageIO.read(file);

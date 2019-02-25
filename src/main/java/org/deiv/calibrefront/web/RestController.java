@@ -32,9 +32,9 @@ import org.deiv.calibrefront.domain.dto.Book;
 import org.deiv.calibrefront.domain.mapper.BookMapper;
 import org.deiv.calibrefront.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +43,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -67,14 +69,17 @@ public class RestController {
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 
         try {
-            File image;
+            InputStream image;
             String coverPath = bookMapper.getBookCoverPath(id);
 
             if (coverPath == null) {
-                image = ResourceUtils.getFile("classpath:images/book-404.jpg");
+                ClassPathResource classPathResource = new ClassPathResource("images/book-404.jpg");
+
+                image = classPathResource.getInputStream();
 
             } else {
-                image = new File(String.format("%s\\cover.jpg", coverPath));
+                String fullPath = String.format("%s\\cover.jpg", coverPath);;
+                image = new FileInputStream(new File(String.format(fullPath)));
             }
 
             ImageIO.write(ImageUtil.createThumbnailFromFile(image), "jpeg", response.getOutputStream());
