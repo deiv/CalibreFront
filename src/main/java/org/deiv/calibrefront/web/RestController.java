@@ -28,6 +28,7 @@
 
 package org.deiv.calibrefront.web;
 
+import org.deiv.calibrefront.config.AppConfig;
 import org.deiv.calibrefront.domain.dto.Book;
 import org.deiv.calibrefront.domain.mapper.BookMapper;
 import org.deiv.calibrefront.util.ImageUtil;
@@ -54,6 +55,9 @@ public class RestController {
     @Autowired
     private BookMapper bookMapper;
 
+    @Autowired
+    AppConfig appConfig;
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public ResponseEntity root()
@@ -78,7 +82,7 @@ public class RestController {
                 image = classPathResource.getInputStream();
 
             } else {
-                String fullPath = String.format("%s\\cover.jpg", coverPath);;
+                String fullPath = String.format("%s\\%s\\cover.jpg", appConfig.getCalibreDbDir(), coverPath);
                 image = new FileInputStream(new File(String.format(fullPath)));
             }
 
