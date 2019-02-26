@@ -26,11 +26,59 @@
  *
  */
 
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 
+import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-item/paper-item.js';
+
+const SharedStyles = css`
+    ul {
+        list-style-type: none;
+        padding: 0 0 0 0.6em;
+    }
+    
+    li {
+        margin: 0.6em 0 0 0;
+    }
+    
+    li iron-icon {
+        width: 32px;
+    }
+    
+    li:has(> ul) iron-icon {
+        width: 16px;
+    }
+    
+    /*paper-item {
+        cursor: pointer;
+    }*/
+    
+    .node-icon {
+        cursor: pointer;
+    }
+    
+    .node-icon:hover {
+        fill: var(--app-header-selected-color);
+    }
+    
+    .leaf-icon {
+        width: 22px;
+    }
+    
+    .node-selected:before {
+        opacity: 0.2;
+        pointer-events: none;
+        background: #000000;
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+`;
 
 export class TreeListNodeElement extends LitElement {
 
@@ -45,36 +93,17 @@ export class TreeListNodeElement extends LitElement {
 
     static get styles() {
         return [
-            // XXX: SharedStyles
+            SharedStyles
         ];
     }
 
     render() {
         return html`
-            <style>
-            ul {
-                    list-style-type: none;
-                    padding: 0 0 0 0.6em;
-                }
-                
-                li {
-                    margin: 0.6em 0 0 0;
-                }
-                
-                li iron-icon {
-                    width: 32px;
-                }
-                
-                li:has(> ul) iron-icon {
-                    width: 16px;
-                }
-            </style>
-            
             <li>
-                <paper-item role="listitem" @click="${this.handleClick}">
+                <paper-item role="listitem" @click="${this.handleSelect}" class="${this.selected ? 'node-selected' : '' }">
                     ${this.children && this.children.length > 0
-                        ? html`<iron-icon class="node-icon" icon="expand-more" ></iron-icon>`
-                        : html`<iron-icon class="leaf-icon" icon="archive" ></iron-icon>`
+                        ? html`<iron-icon class="node-icon" icon="${this.expanded ? 'expand-less' : 'expand-more' }" @click="${this.handleExpandClick}" ></iron-icon>`
+                        : html`<iron-icon class="leaf-icon" icon="chevron-right" @click="${this.handleExpandClick}" ></iron-icon>`
                     }
                     <span class="node-name">${this.text}</span>
                 </paper-item>
@@ -111,11 +140,12 @@ export class TreeListNodeElement extends LitElement {
         });
     }
 
-    handleClick() {
+    handleSelect() {
         this.dispatchEvent(this.selectEvent);
-
         this.selected = true;
+    }
 
+    handleExpandClick() {
         if (this.children) {
             this.expanded = !this.expanded;
         }
@@ -137,7 +167,7 @@ export class TreeListElement extends LitElement {
 
     static get styles() {
         return [
-            // XXX: SharedStyles
+            SharedStyles
         ];
     }
 
@@ -158,25 +188,6 @@ export class TreeListElement extends LitElement {
         }
 
         return html`
-            <style>
-                ul {
-                    list-style-type: none;
-                    padding: 0 0 0 0.6em;
-                }
-                
-                li {
-                    margin: 0.6em 0 0 0;
-                }
-                
-                li iron-icon {
-                    width: 32px;
-                }
-                
-                li:has(> ul) iron-icon {
-                    width: 16px;
-                }
-            </style>
-            
             <ul>
                 ${itemTemplates}
             </ul>
