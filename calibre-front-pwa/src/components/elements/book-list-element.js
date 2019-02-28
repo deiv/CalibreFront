@@ -37,6 +37,7 @@ import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/paper-menu-button/paper-menu-button.js'; /* NOTE: needs web-animations-js polyfill */
+import '@cwmr/iron-star-rating/iron-star-rating.js';
 
 import '@vaadin/vaadin-grid/theme/material/vaadin-grid.js';
 import '@vaadin/vaadin-grid/theme/material/vaadin-grid-selection-column.js';
@@ -189,7 +190,7 @@ export class BookListElement extends connect(reduxStore)(LitElement) {
                         <template class="header">
                             <vaadin-grid-sorter path="rating">Rating</vaadin-grid-sorter>
                         </template>
-                        <template>[[item.rating]]</template>
+                        <template><iron-star-rating value="[[item.rating]]" readonly></iron-star-rating></template>
                     </vaadin-grid-column>
                     
                     <vaadin-grid-column resizable>
