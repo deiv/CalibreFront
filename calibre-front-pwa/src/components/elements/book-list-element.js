@@ -26,6 +26,8 @@
  *
  */
 
+import moment from 'moment/src/moment.js';
+
 import { LitElement, html } from 'lit-element';
 
 import '@polymer/iron-image/iron-image.js';
@@ -209,7 +211,7 @@ export class BookListElement extends connect(reduxStore)(LitElement) {
                     
                     <vaadin-grid-column resizable>
                         <template class="header"><vaadin-grid-sorter path="last_modified">Last Modified</vaadin-grid-sorter></template>
-                        <template>[[item.last_modified]]</template>
+                        <!--<template>[[item.last_modified]]</template>-->
                     </vaadin-grid-column>
             </vaadin-split-layout>
         `;
@@ -233,6 +235,10 @@ export class BookListElement extends connect(reduxStore)(LitElement) {
         // XXX: depends on colums markup order
         columns[5].renderer = function(root, column, rowData) {
             root.textContent = humanFileSize(rowData.item.size, false);
+        };
+
+        columns[6].renderer = function(root, column, rowData) {
+            root.textContent = moment(rowData.item.last_modified).fromNow();
         };
     }
 

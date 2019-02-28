@@ -32,6 +32,7 @@
     "@vaadin/vaadin-split-layout": "^4.1.0",
     "@webcomponents/webcomponentsjs": "^2.2.4",
     "lit-element": "^2.0.0-rc.2",
+    "moment": "^2.24.0",
     "plastic-image": "^3.0.2",
     "pwa-helpers": "^0.9.0",
     "redux": "^4.0.0",
