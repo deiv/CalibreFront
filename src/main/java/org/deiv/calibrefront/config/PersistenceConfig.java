@@ -52,7 +52,10 @@ public class PersistenceConfig {
         dataSource.setUrl(persistenceProperties.getUrl());
 
         Properties sqlLiteDriverProperties = new Properties();
+
         sqlLiteDriverProperties.setProperty(SQLiteConfig.Pragma.DATE_STRING_FORMAT.pragmaName, "yyyy-MM-dd HH:mm:ss.SSSXXX");
+        sqlLiteDriverProperties.setProperty(SQLiteConfig.Pragma.OPEN_MODE.pragmaName, "1");
+
         dataSource.setConnectionProperties(sqlLiteDriverProperties);
 
         return dataSource;
