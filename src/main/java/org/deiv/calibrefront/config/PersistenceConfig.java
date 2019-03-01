@@ -40,16 +40,19 @@ import java.util.Properties;
 @Configuration
 public class PersistenceConfig {
 
+    private static final String SQLITE_DRIVER_CLASSNAME    = "org.sqlite.JDBC";
+    private static final String SQLITE_DRIVER_URL_TEMPLATE = "jdbc:sqlite:%s/metadata.db";
+
     @Autowired
-    PersistenceProperties persistenceProperties;
+    AppConfig appConfig;
 
     @Bean
     public DataSource dataSource()
     {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
-        dataSource.setDriverClassName(persistenceProperties.getDriver());
-        dataSource.setUrl(persistenceProperties.getUrl());
+        
+        dataSource.setDriverClassName(SQLITE_DRIVER_CLASSNAME);
+        dataSource.setUrl(String.format(SQLITE_DRIVER_URL_TEMPLATE, appConfig.getCalibreDbDir()));
 
         Properties sqlLiteDriverProperties = new Properties();
 
