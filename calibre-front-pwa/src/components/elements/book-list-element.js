@@ -30,6 +30,8 @@ import moment from 'moment/src/moment.js';
 
 import { LitElement, html } from 'lit-element';
 
+import { html as htmltag } from '@polymer/polymer/lib/utils/html-tag.js';
+
 import '@polymer/iron-image/iron-image.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/paper-card/paper-card.js';
@@ -59,6 +61,22 @@ import { humanFileSize } from '../../util/util.js'
 
 import { reduxStore } from '../../redux-store.js';
 import { getAllBooks } from "../../actions/rest-data.js";
+
+/*
+ * Remove bottom scrollbar
+ */
+const $_themeDocumentContainer = htmltag`<dom-module id="vaadin-grid-custom-theme" theme-for="vaadin-grid">
+  <template>
+    <style>
+        :host #table {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    </style>
+  </template>
+</dom-module>`;
+
+document.head.appendChild($_themeDocumentContainer.content);
 
 export class BookListElement extends connect(reduxStore)(LitElement) {
 
