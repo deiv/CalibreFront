@@ -120,7 +120,7 @@ export class BookListElement extends connect(reduxStore)(LitElement) {
                     vaadin-grid {
                         width: 85%;         
                     }          
-                }           
+                }      
             </style>
             
             <vaadin-split-layout orientation="horizontal" id="content-splitter">
@@ -155,12 +155,12 @@ export class BookListElement extends connect(reduxStore)(LitElement) {
                         </div>
                     </template>
                     
-                    <vaadin-grid-column style="width: 20px;" flex-grow="0" text-align="end">
+                    <vaadin-grid-column flex-grow="0" text-align="end" width="5%">
                         <template class="header">#</template>
                         <template>[[index]]</template>
                     </vaadin-grid-column>
                     
-                    <vaadin-grid-column resizable>
+                    <vaadin-grid-column resizable width="45%">
                         <template class="header">
                             <vaadin-grid-sorter path="title"><iron-icon icon="sort"></vaadin-grid-sorter>
                             <vaadin-grid-filter path="title" value="{{title-filter-value}}">
@@ -174,7 +174,7 @@ export class BookListElement extends connect(reduxStore)(LitElement) {
                         <template>[[item.title]]</template>
                     </vaadin-grid-column>
                     
-                    <vaadin-grid-column resizable>
+                    <vaadin-grid-column resizable width="15%">
                         <template class="header">
                             <vaadin-grid-sorter path="authors"><iron-icon icon="sort"></iron-icon></vaadin-grid-sorter>
                             <vaadin-grid-filter path="authors" value="{{authors-filter-value}}">
@@ -188,28 +188,28 @@ export class BookListElement extends connect(reduxStore)(LitElement) {
                         <template>[[item.authors]]</template>
                     </vaadin-grid-column>
                     
-                    <vaadin-grid-column resizable>
+                    <vaadin-grid-column resizable width="10%">
                         <template class="header">
                             <vaadin-grid-sorter path="rating">Rating</vaadin-grid-sorter>
                         </template>
                         <template><iron-star-rating value="[[item.rating]]" readonly></iron-star-rating></template>
                     </vaadin-grid-column>
                     
-                    <vaadin-grid-column resizable>
+                    <vaadin-grid-column resizable text-align="end" width="5%">
                         <template class="header">
                             <vaadin-grid-sorter path="format">Format</vaadin-grid-sorter>
                         </template>
                         <template>[[item.format]]</template>
                     </vaadin-grid-column>
                     
-                    <vaadin-grid-column resizable>
+                    <vaadin-grid-column resizable text-align="end" width="5%">
                         <template class="header">
                             <vaadin-grid-sorter path="size">Size</vaadin-grid-sorter>
                         </template>
                         <!--<template>[[item.size]]</template>-->
                     </vaadin-grid-column>
                     
-                    <vaadin-grid-column resizable>
+                    <vaadin-grid-column resizable width="10%">
                         <template class="header"><vaadin-grid-sorter path="last_modified">Last Modified</vaadin-grid-sorter></template>
                         <!--<template>[[item.last_modified]]</template>-->
                     </vaadin-grid-column>
